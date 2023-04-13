@@ -5,7 +5,7 @@ Also, the model has been uploaded for a reference which is developed by Keras/Te
 Project cloning:
 
 ```
-https://github.com/ACSEkevin/An-Overview-of-Segformer-and-Details-Description.git
+git clone https://github.com/ACSEkevin/An-Overview-of-Segformer-and-Details-Description.git
 ```
 
 `ADEChallengeData2016/`: ADE20K,the dataset has been used for training and testing the model, please refer to: [ADE20K Dataset](https://github.com/CSAILVision/ADE20K).<br>

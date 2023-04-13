@@ -15,7 +15,7 @@ https://github.com/ACSEkevin/An-Overview-of-Segformer-and-Details-Description.gi
 
 ## A General Overview of the Model Arcitecture
 Here a re-drawn architecture replaces the one from the [original paper](https://arxiv.org/pdf/2105.15203.pdf), which could help with understanding.<p>
-<img src="images/segformer_arch.png" alt="drawing" width="800"/>
+<img src="images/seg_former_arch.png" alt="drawing" width="800"/><p>
 To conclude and compare:
-* In 
+* In encoder, an input image is scaled to its $\frac{1}{32}$ and then is upsampled to $\frac{1}{4}$ of the original size. However, the model given in the repository upsampled to the full size to attempt for a better result. This can be revised after cloning.
 

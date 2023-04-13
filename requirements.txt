@@ -1,0 +1,6 @@
+scikit-image (0.13.dev0, /home/baris/Libraries/scikit-image-master)
+scikit-learn (0.18.2)
+tensorflow (2.6.0)
+keras (3.5.0)
+numpy (1.24.0)
+cityscapesscripts

@@ -14,4 +14,8 @@ https://github.com/ACSEkevin/An-Overview-of-Segformer-and-Details-Description.gi
 `train.py`: model train script.<br>
 
 ## A General Overview of the Model Arcitecture
+Here a re-drawn architecture replaces the one from the [original paper](https://arxiv.org/pdf/2105.15203.pdf), which could help with understanding.<p>
+<img src="images/segformer_arch.png" alt="drawing" width="800"/>
+To conclude and compare:
+* In 
 

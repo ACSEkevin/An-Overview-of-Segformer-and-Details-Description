@@ -25,6 +25,8 @@ To conclude and compare:
 * There is a <b>OverlapPatchMerging</b> layer at the end of the transformer block, this layer reshapes the vector groups back to feature maps. It can be easy to confuse these two layers as many blogs shows a `no-merging-after-block' opinion.
 * The feature map $C_1$ goes through the <b>MLP Layer</b> without upsampling. Others are upsampled by $\times 2, \times 4, \times 8$ respectively with <b>bilinear</b> interpolation.
 
+
+## A Segformer Block
 ### OverlapPatchEmbedding
 In basic trabsformer block, an image is split and patched as a 'sequence', there is no info interaction between patches (strides=patch_size). While in Segformer, the patch size > strides which leads to information sharing between patches (each conv row) thus called 'overlapped' patches. In the end, followed by a layer normalization.
 
@@ -36,6 +38,9 @@ batches, height, width, embed_dim = x.shape
 x = tf.reshape(x, shape=[-1, height * width, embed_dim])
 x = LayerNormalization()(x)
 ```
+
+### Efficient Self-Attention
+
 
 ### To Be Continued
 

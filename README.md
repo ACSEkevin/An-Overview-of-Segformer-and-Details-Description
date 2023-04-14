@@ -26,9 +26,16 @@ To conclude and compare:
 * The feature map $C_1$ goes through the <b>MLP Layer</b> without upsampling. Others are upsampled by $\times 2, \times 4, \times 8$ respectively with <b>bilinear</b> interpolation.
 
 ### OverlapPatchEmbedding
-In basic trabsformer block, an image is split and patched as a `sequence', there is no info interaction between patches (strides=patch_size). While in Segformer, the patch size > strides which leads to information sharing between patches (each conv row) thus called `overlapped' patches. In the end, followed by a layer normalization.
+In basic trabsformer block, an image is split and patched as a 'sequence', there is no info interaction between patches (strides=patch_size). While in Segformer, the patch size > strides which leads to information sharing between patches (each conv row) thus called 'overlapped' patches. In the end, followed by a layer normalization.
 
-
+```python
+from keras.layers import *
+import tensorflow as tf
+x = Conv2D(n_filters, kernel_size=kernel_size, strides=strides, padding='same')(inputs)
+batches, height, width, embed_dim = x.shape
+x = tf.reshape(x, shape=[-1, height * width, embed_dim])
+x = LayerNormalization()(x)
+```
 
 ### To Be Continued
 

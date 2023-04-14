@@ -22,8 +22,13 @@ Here a <b>re-drawn</b> architecture replaces the one from the [original paper](h
 To conclude and compare:
 * In encoder, an input image is scaled to its $\frac{1}{32}$ and then upsampled to $\frac{1}{4}$ of the original size in decoder. However, the model given in the repository upsampled to the <b>full size</b> to attempt for a better result. This can be revised after cloning.
 * In the original figure, <b>OverlapPatchEmbedding</b> layer is only shown at the begining of the architecture, which can be misleading, infact, there is always <b>OverlapPatchEmbedding</b> layers followed by previous transformer block (shown as SegFormer Block in the figure). Nevertheless, the paper presents a plural term as `OverlapPatchEmbeddings' which implies that there more than one layer.
-* There is a <b>OverlapPatchMerging</b> layer at the end of the transformer block, this layer reshapes the vector groups back to feature maps. It can be easy to confuse these two layers as many blogs shows a `no-merging-after-block' opinion.<p>
+* There is a <b>OverlapPatchMerging</b> layer at the end of the transformer block, this layer reshapes the vector groups back to feature maps. It can be easy to confuse these two layers as many blogs shows a `no-merging-after-block' opinion.
 * The feature map $C_1$ goes through the <b>MLP Layer</b> without upsampling. Others are upsampled by $\times 2, \times 4, \times 8$ respectively with <b>bilinear</b> interpolation.
+
+### OverlapPatchEmbedding
+In basic trabsformer block, an image is split and patched as a `sequence', there is no info interaction between patches (strides=patch_size). While in Segformer, the patch size > strides which leads to information sharing between patches (each conv row) thus called `overlapped' patches. In the end, followed by a layer normalization.
+
+
 
 ### To Be Continued
 

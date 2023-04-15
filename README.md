@@ -18,7 +18,7 @@ Project cloning:
 git clone https://github.com/ACSEkevin/An-Overview-of-Segformer-and-Details-Description.git
 ```
 
-`ADEChallengeData2016/`: ADE20K, the dataset has been used for training and testing the model, please refer to: [ADE20K Dataset](https://github.com/CSAILVision/ADE20K).<br>
+`ADEChallengeData2016/`: ADE20K dataset which has been used for training and testing the model, please refer to: [ADE20K Dataset](https://github.com/CSAILVision/ADE20K).<br>
 `models/`: Two types of programming the model: <b>structrual</b>  and <b>class inheritance</b>.<br>
 `adedataset.py`: a dataset batch generator (keras requirement).<br>
 `train.py`: model train script.<br>

@@ -56,7 +56,7 @@ In the [paper](https://arxiv.org/pdf/2105.15203.pdf), the authors proposed an <b
 [Condtional Positional Encoding](https://arxiv.org/abs/2102.10882) method addresses the problem of loss of accuracy resulted from different input resolutions in VisionTransformer. In this [paper](https://arxiv.org/pdf/2105.15203.pdf) authors pointed out that positional encoding(PE) is not necessary for segmentation tasks. Thus there is only a `Conv` $3 \times 3$ layer without PE in `Mix-FFN`. 
 * In the [code](https://github.com/NVlabs/SegFormer), the `Conv2D` was adopted, whereas, the layer was named after <b>DWConv</b> , which can be can be mis-considered Depth-wise conv layer. It is also important to notice that this conv layer does not change the resolution, dimension of the input feature size.
 * The `Reshape` layers have the same purpose as those in `reduction` layer from <b>Efficient Self-Attention</b>.
-* Shape changes in <b>Mix-FFN</b> layer: $[num_{patches}, dim_{embed}]$ -> $[num_{patches}, dim_{embed} \cdot rate_{exp}]$ -> $[[height, width, dim_{embed} \cdot rate_{exp}]$ -> $[num_{patches}, dim_{embed} \cdot rate_{exp}]$ -> $[num_{patches}, dim_{embed}]$.
+* Shape changes in <b>Mix-FFN</b> layer: $[num_{patches}, dim_{embed}]$ -> $[num_{patches}, dim_{embed} \cdot rate_{exp}]$ -> $[height, width, dim_{embed} \cdot rate_{exp}]$ -> $[num_{patches}, dim_{embed} \cdot rate_{exp}]$ -> $[num_{patches}, dim_{embed}]$.
 
 
 ### To Be Continued

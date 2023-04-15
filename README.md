@@ -1,6 +1,8 @@
 # An Overview of Segformer and Details Description
+
 In this repository, the structure of the <b>Segformer</b> model is explained. In many recent blog posts and tutorials, the structure of Segformer has been misunderstood by many people, even experienced computer vision engineers, for reasons that may include misleading diagrams of the Segformer structure in the [original paper](https://arxiv.org/pdf/2105.15203.pdf), but the model structure is shown clearly in the [source code address](https://github.com/NVlabs/SegFormer) given in the paper. Therefore, the details of the Segformer, including <b>OverlapPatchEmbedding</b>, <b>Efficient Multihead Attention</b>, <b>Mixed-FeedForward Network</b>, <b>OverlapPatchMerging</b> and <b>Segformer block</b>, will also be elaborated here. If there is any problem, please feel free to make a complain, also make a [contact](hzhang205@sheffield.ac.uk) if convenient.<br>
 Also, the model has been uploaded for a reference which is developed by Keras/TensorFlow.
+
 ## Basics and File Description
 Project cloning:
 
@@ -26,13 +28,11 @@ To conclude and compare:
 * The feature map $C_1$ goes through the <b>MLP Layer</b> without upsampling. Others are upsampled by $\times 2, \times 4, \times 8$ respectively with <b>bilinear</b> interpolation.
 
 
-## A Single Stage of the Architecture
+## A Single Stage of the Encoder
 ### OverlapPatchEmbedding
 In basic trabsformer block, an image is split and patched as a 'sequence', there is no info interaction between patches (strides=patch_size). While in Segformer, the patch size > strides which leads to information sharing between patches (each conv row) thus called 'overlapped' patches. In the end, followed by a layer normalization.
 
 ```python
-from keras.layers import *
-import tensorflow as tf
 x = Conv2D(n_filters, kernel_size=kernel_size, strides=strides, padding='same')(inputs)
 batches, height, width, embed_dim = x.shape
 x = tf.reshape(x, shape=[-1, height * width, embed_dim])
@@ -51,13 +51,40 @@ In the [paper](https://arxiv.org/pdf/2105.15203.pdf), the authors proposed an <b
 * Like a normal Self-Attention module, each vector of an input sequence will propose $query$, $key$ and $value$. While there is only one vector shown in the figure.
 * Differently, $key$ and $value$ matrices go through `reduction` layer then participate in transformations. The layer can be implemented by `Conv2D` which plays a role of down sampling (strides $=$ kernel_size), then followed by a `Layer Normalization`. The `Reshape` layers helps reconstruct and de-construct feature maps respectively.
 * Shape changes in <b>reduction</b> layer: $[num_{patches}, dim_{embed}]$ -> $[height, width, dim_{embed}]$ -> $[\frac{height}{sr}, \frac{width}{sr}, dim_{embed}]$ -> $[\frac{height \times width}{sr^2}, dim_{embed}]$.
+  
+reduction layer:
+```python
+batches, n_patches, channels = inputs.shape
+if sr_ratio > 1:
+  inputs = tf.reshape(inputs, shape=[batches, height, width, embed_dim])
+  inputs = Conv2D(embed_dim, kernel_size=sr_ratio, strides=sr_ratio, padding='same')(inputs)
+  inputs = LayerNormalization()(inputs)
+  inputs = tf.reshape(inputs, shape=[batches, (height * width) // (sr_ratio ** 2), embed_dim])
+```
 
 <b>Mix-Feedforward Network</b>:
 [Condtional Positional Encoding](https://arxiv.org/abs/2102.10882) method addresses the problem of loss of accuracy resulted from different input resolutions in VisionTransformer. In this [paper](https://arxiv.org/pdf/2105.15203.pdf) authors pointed out that positional encoding(PE) is not necessary for segmentation tasks. Thus there is only a `Conv` $3 \times 3$ layer without PE in `Mix-FFN`. 
 * In the [code](https://github.com/NVlabs/SegFormer), the `Conv2D` was adopted, whereas, the layer was named after <b>DWConv</b> , which can be can be mis-considered Depth-wise conv layer. It is also important to notice that this conv layer does not change the resolution, dimension of the input feature size.
 * The `Reshape` layers have the same purpose as those in `reduction` layer from <b>Efficient Self-Attention</b>.
 * Shape changes in <b>Mix-FFN</b> layer: $[num_{patches}, dim_{embed}]$ -> $[num_{patches}, dim_{embed} \cdot rate_{exp}]$ -> $[height, width, dim_{embed} \cdot rate_{exp}]$ -> $[num_{patches}, dim_{embed} \cdot rate_{exp}]$ -> $[num_{patches}, dim_{embed}]$.
-
+  
+```python
+batches, n_patches, channels = inputs.shape
+x = Dense(int(embed_dim * expansion_rate), use_bias=True)(inputs)
+x = tf.reshape(x, shape=[batches, height, width, int(embed_dim * expansion_rate)])
+x = Conv2D(int(embed_dim * expansion_rate), kernel_size=3, strides=1, padding='same')(x)
+x = tf.reshape(x, shape=[batches, n_patches, int(embed_dim * expansion_rate)])
+x = Activation('gelu')(x)
+x = Dense(embed_dim, use_bias=True)(x)
+x = Dropout(rate=drop_rate)(x)
+```
+<b>OverlapPatchMerging</b><br>
+This is a simple reshape operation to reconstruct sequences (patches) to feature maps. There is also a detail that the layer is also proceded by a `Layer Normalization`.
+```python
+x = LayerNormalization()(x)
+feature_Cx = tf.reshape(x, shape=[batches, height_Cx, width_Cx, embed_dims[index]])
+```
+<p>where <b>embed_dims[index]</b> can be a list that stores the embedding dimension of each Segformer block.
 
 ### To Be Continued
 

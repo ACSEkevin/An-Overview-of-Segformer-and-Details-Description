@@ -26,7 +26,7 @@ To conclude and compare:
 * The feature map $C_1$ goes through the <b>MLP Layer</b> without upsampling. Others are upsampled by $\times 2, \times 4, \times 8$ respectively with <b>bilinear</b> interpolation.
 
 
-## A Segformer Block
+## A Single Stage of the Architecture
 ### OverlapPatchEmbedding
 In basic trabsformer block, an image is split and patched as a 'sequence', there is no info interaction between patches (strides=patch_size). While in Segformer, the patch size > strides which leads to information sharing between patches (each conv row) thus called 'overlapped' patches. In the end, followed by a layer normalization.
 
@@ -40,7 +40,10 @@ x = LayerNormalization()(x)
 ```
 
 ### Efficient Self-Attention
-
+Below is a diagram that shows the detailed architecture of an <b>Efficient Self-Attention</b> module.
+<p align='center'>  
+<img src="images/efficient_attention.png" alt="drawing" width="600"/>
+</p>
 
 ### To Be Continued
 

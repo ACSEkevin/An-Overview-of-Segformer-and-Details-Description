@@ -62,7 +62,7 @@ if sr_ratio > 1:
   inputs = tf.reshape(inputs, shape=[batches, (height * width) // (sr_ratio ** 2), embed_dim])
 ```
 
-<b>Mix-Feedforward Network</b>:
+### Mix-Feedforward Network
 [Condtional Positional Encoding](https://arxiv.org/abs/2102.10882) method addresses the problem of loss of accuracy resulted from different input resolutions in VisionTransformer. In this [paper](https://arxiv.org/pdf/2105.15203.pdf) authors pointed out that positional encoding(PE) is not necessary for segmentation tasks. Thus there is only a `Conv` $3 \times 3$ layer without PE in `Mix-FFN`. 
 * In the [code](https://github.com/NVlabs/SegFormer), the `Conv2D` was adopted, whereas, the layer was named after <b>DWConv</b> , which can be can be mis-considered Depth-wise conv layer. It is also important to notice that this conv layer does not change the resolution, dimension of the input feature size.
 * The `Reshape` layers have the same purpose as those in `reduction` layer from <b>Efficient Self-Attention</b>.
@@ -78,7 +78,7 @@ x = Activation('gelu')(x)
 x = Dense(embed_dim, use_bias=True)(x)
 x = Dropout(rate=drop_rate)(x)
 ```
-<b>OverlapPatchMerging</b><br>
+### OverlapPatchMerging
 This is a simple reshape operation to reconstruct sequences (patches) to feature maps. There is also a detail that the layer is also proceded by a `Layer Normalization`.
 ```python
 x = LayerNormalization()(x)

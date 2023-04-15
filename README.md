@@ -1,17 +1,15 @@
 # An Overview of Segformer and Details Description
 ## Preface
 In this repository, the structure of the <b>Segformer</b> model is explained. In many recent blog posts and tutorials, the structure of Segformer has been misunderstood by many people, even experienced computer vision engineers, for reasons that may include misleading diagrams of the Segformer structure in the [original paper](https://arxiv.org/pdf/2105.15203.pdf), but the model structure is shown clearly in the [source code address](https://github.com/NVlabs/SegFormer) given in the paper. Therefore, the details of the Segformer, including <b>OverlapPatchEmbedding</b>, <b>Efficient Multihead Attention</b>, <b>Mixed-FeedForward Network</b>, <b>OverlapPatchMerging</b> and <b>Segformer block</b>, will also be elaborated here. If there is any problem, please feel free to make a complain, also make a [contact](hzhang205@sheffield.ac.uk) if convenient.<br>
-Also, the model has been uploaded for a reference which is developed by Keras/TensorFlow.
+Also, the code has been uploaded for a reference which is developed by Keras/TensorFlow.
 
 <p align='center'>
-  <img src="images/im1.jpeg" width="30%" />
-  <img src="images/seg1.png" width="30%" /> 
+  <img src="images/im1.jpeg" width="24%" />
+  <img src="images/seg1.png" width="24%" />
+  <img src="images/im2.jpeg" width="24%" />
+  <img src="images/seg2.png" width="24%" /> 
 </p>
-
-<p align='center'>
-  <img src="images/im2.jpeg" width="30%" />
-  <img src="images/seg2.png" width="30%" /> 
-</p>
+This is an instance segmentation example of street scene. Images taken from city center, Sheffield.
 
 ## Basics and File Description
 Project cloning:

@@ -48,7 +48,6 @@ Below is a diagram that shows the detailed architecture of an <b>A Segformer Blo
 
 ### Efficient Self-Attention
 In the [paper](https://arxiv.org/pdf/2105.15203.pdf), the authors proposed an <b>Efficient Self-Attention</b> to reduce the temporal complexity from $O(n^2)$ to $O(\frac{n^2}{sr})$ where $sr$ is sampling reduction ratio. The module trans back to basic <b>Self-Attention</b> $sr=1$. <p>
-<b>Efficient Self-Attention</b>:
 * Like a normal Self-Attention module, each vector of an input sequence will propose $query$, $key$ and $value$. While there is only one vector shown in the figure.
 * Differently, $key$ and $value$ matrices go through `reduction` layer then participate in transformations. The layer can be implemented by `Conv2D` which plays a role of down sampling (strides $=$ kernel_size), then followed by a `Layer Normalization`. The `Reshape` layers helps reconstruct and de-construct feature maps respectively.
 * Shape changes in <b>reduction</b> layer: $[num_{patches}, dim_{embed}]$ -> $[height, width, dim_{embed}]$ -> $[\frac{height}{sr}, \frac{width}{sr}, dim_{embed}]$ -> $[\frac{height \times width}{sr^2}, dim_{embed}]$.

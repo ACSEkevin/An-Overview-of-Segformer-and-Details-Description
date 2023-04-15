@@ -92,5 +92,5 @@ feature_Cx = tf.reshape(x, shape=[batches, height_Cx, width_Cx, embed_dims[index
 * Chu, X. *et al.* (2021) 'Conditional Positional Encodings for Vision Transformers', *ICLR 2023*, pp. 1-19. arXiv doi: [10.48550/arXiv.2102.1088](https://doi.org/10.48550/arXiv.2102.10882)
   
 ## Author and Contributor
-[@ACSEKevin](https://github.com/ACSEkevin)
+### [@ACSEKevin](https://github.com/ACSEkevin)
 

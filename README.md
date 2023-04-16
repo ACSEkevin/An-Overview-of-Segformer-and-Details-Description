@@ -73,7 +73,7 @@ if sr_ratio > 1:
 
 ### Mix-Feedforward Network
 [Condtional Positional Encoding](https://arxiv.org/abs/2102.10882) method addresses the problem of loss of accuracy resulted from different input resolutions in VisionTransformer. In this [paper](https://arxiv.org/pdf/2105.15203.pdf) authors pointed out that positional encoding(PE) is not necessary for segmentation tasks. Thus there is only a `Conv` $3 \times 3$ layer without PE in `Mix-FFN`. 
-* In the [code](https://github.com/NVlabs/SegFormer), the layer <b>DWConv</b> was adpoted rather than `Conv 3x3` descripted in the paper , which can be can be mis-leading.
+* In the [code](https://github.com/NVlabs/SegFormer), the layer <b>DWConv</b> was adpoted rather than `Conv` $3 \times 3$ descripted in the paper , which can be mis-leading.
 * The `Reshape` layers have the same purpose as those in `reduction` layer from <b>Efficient Self-Attention</b>.
 * Shape changes in <b>Mix-FFN</b> layer: $[num_{patches}, dim_{embed}]$ -> $[num_{patches}, dim_{embed} \cdot rate_{exp}]$ -> $[height, width, dim_{embed} \cdot rate_{exp}]$ -> $[num_{patches}, dim_{embed} \cdot rate_{exp}]$ -> $[num_{patches}, dim_{embed}]$.
   

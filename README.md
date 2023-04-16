@@ -12,7 +12,7 @@ Also, the code has been uploaded for a reference which is developed by Keras/Ten
 This is an <b>instance segmentation</b> example of street scene. Images taken from city center, Sheffield, England.
 
 ## Basics and File Description
-Project cloning:
+Project:
 
 ```
 git clone https://github.com/ACSEkevin/An-Overview-of-Segformer-and-Details-Description.git
@@ -21,7 +21,8 @@ git clone https://github.com/ACSEkevin/An-Overview-of-Segformer-and-Details-Desc
 `ADEChallengeData2016/`: ADE20K dataset which has been used for training and testing the model, please refer to: [ADE20K Dataset](https://github.com/CSAILVision/ADE20K).<br>
 `models/`: Two types of programming the model: <b>structrual</b>  and <b>class inheritance</b>.<br>
 `adedataset.py`: a dataset batch generator (keras requirement).<br>
-`train.py`: model train script.<br>
+`train.py`: model train script.<b> NOTICE</b>: this is an example basic train script that Keras .fit() API has been used, for detailed model training please use TensorFlow to build a `train_one_epoch()`.<p>
+<b>To be continued:</b> A validation script; a predict script for model output.
 
 ## A General Overview of the Model Arcitecture
 Here a <b>re-drawn</b> architecture replaces the one from the [original paper](https://arxiv.org/pdf/2105.15203.pdf), which might help to gain a better understanding.

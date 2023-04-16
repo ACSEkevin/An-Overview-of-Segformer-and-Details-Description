@@ -7,7 +7,7 @@ Also, the code has been uploaded for a reference which is developed by Keras/Ten
   <img src="images/im1.jpeg" width="24%" />
   <img src="images/seg1.png" width="24%" />
   <img src="images/im2.jpeg" width="24%" />
-  <img src="images/seg2.png" width="24%" /> 
+  <img src="images/seg2.png" width="24.23%" /> 
 </p>
 This is an <b>instance segmentation</b> example of street scene. Images taken from city center, Sheffield, England.
 

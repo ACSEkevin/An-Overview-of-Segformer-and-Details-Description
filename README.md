@@ -81,7 +81,7 @@ if sr_ratio > 1:
 batches, n_patches, channels = inputs.shape
 x = Dense(int(embed_dim * expansion_rate), use_bias=True)(inputs)
 x = tf.reshape(x, shape=[batches, height, width, int(embed_dim * expansion_rate)])
-x = Conv2D(int(embed_dim * expansion_rate), kernel_size=3, strides=1, padding='same')(x)
+x = DepthwiseConv2D(kernel_size=3, strides=1, padding='same')(x)
 x = tf.reshape(x, shape=[batches, n_patches, int(embed_dim * expansion_rate)])
 x = Activation('gelu')(x)
 x = Dense(embed_dim, use_bias=True)(x)
